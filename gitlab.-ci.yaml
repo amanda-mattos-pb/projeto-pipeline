@@ -1,0 +1,67 @@
+stages:
+  - build_push_backend
+  - build_push_frontend
+  - deploy
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: "" 
+  DOCKERHUB_USER: $DOCKERHUB_USER # usuario do dockerhub
+  DOCKERHUB_PASS: $DOCKERHUB_PASS # senha do dockerhub
+  KUBE_CONFIG: $KUBE_CONFIG   # Conteúdo do kubeconfig como variável no GitLab
+
+# realiza o build e push da imagem do backend
+build_backend:
+  stage: build_push_backend
+  image: docker:20.10
+  services:
+    - docker:20.10-dind
+  script:
+    - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
+    - docker build -t $DOCKERHUB_USER/projeto01-backend:latest ./backend
+    - docker push $DOCKERHUB_USER/projeto01-backend:latest
+
+# realiza o build e push da imagem do frontend
+build_frontend:
+  stage: build_push_frontend
+  image: docker:20.10
+  services:
+    - docker:20.10-dind
+  script:
+    - echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
+    - docker build -t $DOCKERHUB_USER/projeto01-frontend:latest ./frontend
+    - docker push $DOCKERHUB_USER/projeto01-frontend:latest
+
+deploy:
+  stage: deploy
+  tags:
+    - gitlab-runner
+  when: manual
+  script:
+    - kind get clusters
+
+    # envia as configurações do kubectl salvo no gitlab para o kubectl no runner
+    - echo "$KUBE_CONFIG" > kubeconfig.yaml
+    - export KUBECONFIG=$PWD/kubeconfig.yaml
+    - kubectl get nodes
+    - kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.13.0/deploy/static/provider/kind/deploy.yaml
+  
+    # aguarda o controller e jobs admission
+    - kubectl wait --namespace ingress-nginx --for=condition=Available deployment/ingress-nginx-controller --timeout=120s
+    - kubectl wait --namespace ingress-nginx --for=condition=complete job/ingress-nginx-admission-create --timeout=120s || true
+    - kubectl wait --namespace ingress-nginx --for=condition=complete job/ingress-nginx-admission-patch --timeout=120s || true
+
+    # inicia cada um dos objetos do kubernates
+    - kubectl apply -f k8s/namespace.yaml
+    - kubectl apply -f k8s/database/secrets.yaml
+    - kubectl apply -f k8s/database/pvc.yaml
+    - kubectl apply -f k8s/database/statefulset.yaml
+    - kubectl apply -f k8s/backend/secrets.yaml 
+    - kubectl apply -f k8s/backend/configmap.yaml 
+    - kubectl apply -f k8s/backend/deployment.yaml
+    - kubectl apply -f k8s/frontend/deployment.yaml
+    - kubectl apply -f k8s/ingress/ingress.yaml
+
+    # reinicia os deployments de back e front para atualizar as imagens
+    - kubectl rollout restart deployment -n app deploy-backend 
+    - kubectl rollout restart deployment -n app deploy-frontend

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Docker e Kubernetes - Referência Completa</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <i class="fab fa-docker"></i>
+          <h1>Docker & Kubernetes</h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#docker"><i class="fab fa-docker"></i> Docker</a></li>
+            <li><a href="#kubernetes"><i class="fas fa-cubes"></i> Kubernetes</a></li>
+          </ul>
+        </nav>
+        <div class="user-auth">
+          <div id="auth-buttons">
+            <button class="auth-btn" id="login-btn">Login</button>
+            <button class="auth-btn" id="register-btn">Registrar</button>
+          </div>
+          <div id="user-info" style="display: none;">
+            <div class="user-info">
+              <div class="user-avatar" id="user-avatar">U</div>
+              <span id="username-display">Usuário</span>
+              <button class="auth-btn" id="logout-btn">Sair</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <section class="hero">
+      <h2>Comandos Essenciais para Containerização</h2>
+      <p>Referência completa dos comandos mais úteis para gerenciar containers com Docker e orquestrar aplicações com Kubernetes.</p>
+      
+      <div class="tech-icons">
+        <div class="tech-icon docker-icon">
+          <i class="fab fa-docker"></i>
+        </div>
+        <div class="tech-icon k8s-icon">
+          <i class="fas fa-cubes"></i>
+        </div>
+      </div>
+    </section>
+
+    <div class="content">
+      <section id="docker" class="section">
+        <h2><i class="fab fa-docker"></i> Docker</h2>
+        <p>Docker é uma plataforma que permite criar, implantar e executar aplicativos em contêineres, oferecendo isolamento e portabilidade.</p>
+        
+        <div class="cheat-sheet">
+          <h3>Comandos Básicos do Docker</h3>
+          <table>
+            <tr>
+              <th>Comando</th>
+              <th>Descrição</th>
+            </tr>
+            <tr>
+              <td><code>docker run [imagem]</code></td>
+              <td>Executa um contêiner a partir de uma imagem</td>
+            </tr>
+            <tr>
+              <td><code>docker ps</code></td>
+              <td>Lista os contêineres em execução</td>
+            </tr>
+            <tr>
+              <td><code>docker ps -a</code></td>
+              <td>Lista todos os contêineres (incluindo parados)</td>
+            </tr>
+            <tr>
+              <td><code>docker stop [contêiner]</code></td>
+              <td>Para um contêiner em execução</td>
+            </tr>
+            <tr>
+              <td><code>docker rm [contêiner]</code></td>
+              <td>Remove um contêiner parado</td>
+            </tr>
+            <tr>
+              <td><code>docker images</code></td>
+              <td>Lista as imagens disponíveis</td>
+            </tr>
+            <tr>
+              <td><code>docker rmi [imagem]</code></td>
+              <td>Remove uma imagem</td>
+            </tr>
+            <tr>
+              <td><code>docker pull [imagem]</code></td>
+              <td>Baixa uma imagem do Docker Hub</td>
+            </tr>
+            <tr>
+              <td><code>docker build -t [tag] .</code></td>
+              <td>Constrói uma imagem a partir de um Dockerfile</td>
+            </tr>
+            <tr>
+              <td><code>docker logs [contêiner]</code></td>
+              <td>Mostra os logs de um contêiner</td>
+            </tr>
+            <tr>
+              <td><code>docker exec -it [contêiner] bash</code></td>
+              <td>Acessa um contêiner em execução</td>
+            </tr>
+          </table>
+        </div>
+        
+        <div class="comments-section">
+          <h3><i class="fas fa-comments"></i> Comentários sobre Docker</h3>
+          <div class="comment-form">
+            <textarea id="docker-comment" placeholder="Adicione um comentário sobre Docker..."></textarea>
+            <button onclick="postComment('docker')">Enviar Comentário</button>
+          </div>
+          <div class="comment-list" id="docker-comments">
+            <!-- Comentários serão carregados aqui -->
+          </div>
+        </div>
+      </section>
+
+      <section id="kubernetes" class="section">
+        <h2><i class="fas fa-cubes"></i> Kubernetes</h2>
+        <p>Kubernetes é um sistema de orquestração de contêineres para automatizar a implantação, o dimensionamento e a operação de aplicativos.</p>
+        
+        <div class="cheat-sheet">
+          <h3>Comandos Básicos do Kubernetes</h3>
+          <table>
+            <tr>
+              <th>Comando</th>
+              <th>Descrição</th>
+            </tr>
+            <tr>
+              <td><code>kubectl get pods</code></td>
+              <td>Lista os pods em execução</td>
+            </tr>
+            <tr>
+              <td><code>kubectl get deployments</code></td>
+              <td>Lista as implantações</td>
+            </tr>
+            <tr>
+              <td><code>kubectl get services</code></td>
+              <td>Lista os serviços</td>
+            </tr>
+            <tr>
+              <td><code>kubectl describe pod [pod]</code></td>
+              <td>Mostra detalhes de um pod específico</td>
+            </tr>
+            <tr>
+              <td><code>kubectl apply -f [arquivo.yaml]</code></td>
+              <td>Aplica uma configuração de um arquivo YAML</td>
+            </tr>
+            <tr>
+              <td><code>kubectl delete pod [pod]</code></td>
+              <td>Exclui um pod</td>
+            </tr>
+            <tr>
+              <td><code>kubectl logs [pod]</code></td>
+              <td>Mostra os logs de um pod</td>
+            </tr>
+            <tr>
+              <td><code>kubectl exec -it [pod] -- bash</code></td>
+              <td>Acessa um pod em execução</td>
+            </tr>
+            <tr>
+              <td><code>kubectl scale deploy [deploy] --replicas=[n]</code></td>
+              <td>Dimensiona uma implantação</td>
+            </tr>
+            <tr>
+              <td><code>kubectl config get-contexts</code></td>
+              <td>Lista os contextos disponíveis</td>
+            </tr>
+            <tr>
+              <td><code>kubectl create namespace [nome]</code></td>
+              <td>Cria um novo namespace</td>
+            </tr>
+          </table>
+        </div>
+        
+        <div class="comments-section">
+          <h3><i class="fas fa-comments"></i> Comentários sobre Kubernetes</h3>
+          <div class="comment-form">
+            <textarea id="kubernetes-comment" placeholder="Adicione um comentário sobre Kubernetes..."></textarea>
+            <button onclick="postComment('kubernetes')">Enviar Comentário</button>
+          </div>
+          <div class="comment-list" id="kubernetes-comments">
+            <!-- Comentários serão carregados aqui -->
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  
+  <!-- Modal de Login/Registro -->
+  <div class="modal" id="auth-modal">
+    <div class="modal-content">
+      <span class="close-modal" id="close-modal">&times;</span>
+      <h2 class="modal-title" id="modal-title">Login</h2>
+      <form id="auth-form">
+        <div class="form-group">
+          <label for="auth-email">Email</label>
+          <input type="email" id="auth-email" required>
+        </div>
+        <div class="form-group">
+          <label for="auth-password">Senha</label>
+          <input type="password" id="auth-password" required>
+        </div>
+        <button type="submit" class="form-submit" id="auth-submit">Entrar</button>
+        <div class="form-switch" id="form-switch">
+          Não tem uma conta? <a id="switch-action">Registrar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© 2023 Docker & Kubernetes Reference Guide | Desenvolvido para desenvolvedores e DevOps</p>
+      <p>Comandos atualizados para as versões mais recentes</p>
+    </div>
+  </footer>
+  
+  <script>
+    // Simulando um backend com dados em memória
+    const backend = {
+      users: [
+        { id: 1, email: 'usuario@exemplo.com', password: 'senha123', name: 'Usuário Demo' }
+      ],
+      comments: {
+        docker: [
+          { id: 1, userId: 1, text: 'Docker revolucionou minha forma de desenvolver aplicações!', timestamp: '2023-10-15T14:30:00' }
+        ],
+        kubernetes: [
+          { id: 1, userId: 1, text: 'Kubernetes é essencial para gerenciar aplicações em escala.', timestamp: '2023-10-16T09:45:00' }
+        ]
+      },
+      currentUser: null,
+      
+      login(email, password) {
+        const user = this.users.find(u => u.email === email && u.password === password);
+        if (user) {
+          this.currentUser = user;
+          return user;
+        }
+        return null;
+      },
+      
+      register(email, password, name) {
+        const id = this.users.length + 1;
+        const newUser = { id, email, password, name };
+        this.users.push(newUser);
+        this.currentUser = newUser;
+        return newUser;
+      },
+      
+      logout() {
+        this.currentUser = null;
+      },
+      
+      getComments(section) {
+        return this.comments[section] || [];
+      },
+      
+      addComment(section, text) {
+        if (!this.currentUser) return null;
+        
+        const comments = this.comments[section] || [];
+        const id = comments.length + 1;
+        const newComment = {
+          id,
+          userId: this.currentUser.id,
+          text,
+          timestamp: new Date().toISOString()
+        };
+        
+        comments.unshift(newComment);
+        this.comments[section] = comments;
+        
+        return {
+          ...newComment,
+          user: this.currentUser
+        };
+      }
+    };
+    
+    // Elementos DOM
+    const authModal = document.getElementById('auth-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const authForm = document.getElementById('auth-form');
+    const closeModal = document.getElementById('close-modal');
+    const loginBtn = document.getElementById('login-btn');
+    const registerBtn = document.getElementById('register-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+    const authButtons = document.getElementById('auth-buttons');
+    const userInfo = document.getElementById('user-info');
+    const usernameDisplay = document.getElementById('username-display');
+    const userAvatar = document.getElementById('user-avatar');
+    const switchAction = document.getElementById('switch-action');
+    const authSubmit = document.getElementById('auth-submit');
+    
+    // Estado da aplicação
+    let isLoginMode = true;
+    
+    // Funções de autenticação
+    function openAuthModal(isLogin) {
+      isLoginMode = isLogin;
+      modalTitle.textContent = isLoginMode ? 'Login' : 'Registrar';
+      authSubmit.textContent = isLoginMode ? 'Entrar' : 'Criar Conta';
+      switchAction.textContent = isLoginMode ? 'Registrar' : 'Login';
+      document.getElementById('form-switch').innerHTML = isLoginMode ? 
+        'Não tem uma conta? <a id="switch-action">Registrar</a>' : 
+        'Já tem uma conta? <a id="switch-action">Login</a>';
+      authModal.style.display = 'flex';
+    }
+    
+    function closeAuthModal() {
+      authModal.style.display = 'none';
+      authForm.reset();
+    }
+    
+    function updateUserUI() {
+      if (backend.currentUser) {
+        authButtons.style.display = 'none';
+        userInfo.style.display = 'flex';
+        usernameDisplay.textContent = backend.currentUser.name;
+        userAvatar.textContent = backend.currentUser.name.charAt(0).toUpperCase();
+      } else {
+        authButtons.style.display = 'flex';
+        userInfo.style.display = 'none';
+      }
+    }
+    
+    function loadComments() {
+      const dockerComments = backend.getComments('docker');
+      const kubernetesComments = backend.getComments('kubernetes');
+      
+      renderComments('docker-comments', dockerComments);
+      renderComments('kubernetes-comments', kubernetesComments);
+    }
+    
+    function renderComments(containerId, comments) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      
+      if (comments.length === 0) {
+        container.innerHTML = '<p>Nenhum comentário ainda. Seja o primeiro a comentar!</p>';
+        return;
+      }
+      
+      comments.forEach(comment => {
+        const user = backend.users.find(u => u.id === comment.userId);
+        if (!user) return;
+        
+        const date = new Date(comment.timestamp);
+        const formattedDate = date.toLocaleDateString('pt-BR', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        
+        const commentElement = document.createElement('div');
+        commentElement.className = 'comment';
+        commentElement.innerHTML = `
+          <div class="comment-header">
+            <div class="comment-user">
+              <div class="comment-avatar">${user.name.charAt(0).toUpperCase()}</div>
+              <div class="comment-name">${user.name}</div>
+            </div>
+            <div class="comment-time">${formattedDate}</div>
+          </div>
+          <div class="comment-content">${comment.text}</div>
+        `;
+        
+        container.appendChild(commentElement);
+      });
+    }
+    
+    function postComment(section) {
+      const textarea = document.getElementById(`${section}-comment`);
+      const text = textarea.value.trim();
+      
+      if (!text) {
+        alert('Por favor, digite um comentário');
+        return;
+      }
+      
+      if (!backend.currentUser) {
+        alert('Por favor, faça login para comentar');
+        openAuthModal(true);
+        return;
+      }
+      
+      const comment = backend.addComment(section, text);
+      if (comment) {
+        textarea.value = '';
+        loadComments();
+      }
+    }
+    
+    // Event Listeners
+    loginBtn.addEventListener('click', () => openAuthModal(true));
+    registerBtn.addEventListener('click', () => openAuthModal(false));
+    closeModal.addEventListener('click', closeAuthModal);
+    
+    logoutBtn.addEventListener('click', () => {
+      backend.logout();
+      updateUserUI();
+    });
+    
+    switchAction.addEventListener('click', (e) => {
+      e.preventDefault();
+      isLoginMode = !isLoginMode;
+      openAuthModal(isLoginMode);
+    });
+    
+    authForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('auth-email').value;
+      const password = document.getElementById('auth-password').value;
+      
+      if (isLoginMode) {
+        const user = backend.login(email, password);
+        if (user) {
+          closeAuthModal();
+          updateUserUI();
+        } else {
+          alert('Email ou senha incorretos');
+        }
+      } else {
+        const name = email.split('@')[0];
+        backend.register(email, password, name);
+        closeAuthModal();
+        updateUserUI();
+      }
+    });
+    
+    // Fechar modal ao clicar fora do conteúdo
+    window.addEventListener('click', (e) => {
+      if (e.target === authModal) {
+        closeAuthModal();
+      }
+    });
+    
+    // Inicialização
+    document.addEventListener('DOMContentLoaded', () => {
+      // Simular que o usuário está logado para demonstração
+      // backend.login('usuario@exemplo.com', 'senha123');
+      updateUserUI();
+      loadComments();
+    });
+  </script>
+</body>
+</html>

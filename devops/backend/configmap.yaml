@@ -1,0 +1,11 @@
+# backend/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-configmap
+  namespace: app-ns 
+data:
+  DB_HOST: "postgres-service.db-ns.svc.cluster.local" 
+  DB_NAME: "mensagensdb" 
+  API_HOST: "0.0.0.0"
+  API_PORT: "5000"
